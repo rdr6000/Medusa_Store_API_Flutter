@@ -89,4 +89,21 @@ class ProductCategory {
       updatedAt: DateTime.tryParse(json['updated_at'] ?? '')?.toLocal(),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    var json = <String, dynamic>{};
+    json['id'] = id;
+    json['name'] = name;
+    json['handle'] = handle;
+    json['mpath'] = mPath;
+    json['is_internal'] = isInternal;
+    json['is_active'] = isActive;
+    json['parent_category_id'] = parentCategoryId;
+    json['rank'] = rank;
+    json['parent_category'] = parentCategory?.toJson();
+    json['products'] = products?.map((e) => e.toJson()).toList();
+    json['created_at'] = createdAt.toString();
+    json['updated_at'] = updatedAt.toString();
+    return json;
+  }
 }

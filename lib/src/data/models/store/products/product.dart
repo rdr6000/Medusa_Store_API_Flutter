@@ -3,6 +3,7 @@ import '../others/index.dart';
 import 'product_option.dart';
 import 'product_variant.dart';
 import 'product_collection.dart';
+import 'product_category.dart';
 import 'product_type.dart';
 import 'product_tag.dart';
 
@@ -76,6 +77,12 @@ class Product  {
   /// The details of the product collection that the product belongs to.
   final ProductCollection? collection;
 
+  /// The id of the product category that the product belongs to.
+  final String? categoryId;
+
+  /// The details of the product collection that the product belongs to.
+  final ProductCategory? category;
+
   /// The id of the product type that the product belongs to.
   final String? typeId;
 
@@ -130,6 +137,8 @@ class Product  {
     this.material,
     this.collectionId,
     this.collection,
+    this.categoryId,
+    this.category,
     this.typeId,
     this.type,
     this.tags,
@@ -186,6 +195,8 @@ class Product  {
       profileId: json['profile_id'],
       collectionId: json['collection_id'],
       collection: json['collection'] != null ? ProductCollection.fromJson(json['collection']) : null,
+      categoryId: json['category_id'],
+      category: json['category'] != null ? ProductCategory.fromJson(json['category']) : null,
       width: json['width'],
       length: json['length'],
       height: json['height'],
@@ -294,6 +305,14 @@ class Product  {
 
     if (collection != null) {
       json['collection'] = collection?.toJson();
+    }
+
+    if (categoryId != null) {
+      json['category_id'] = categoryId;
+    }
+
+    if (category != null) {
+      json['category'] = category?.toJson();
     }
 
     if (typeId != null) {
