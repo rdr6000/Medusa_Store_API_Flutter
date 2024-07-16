@@ -12,3 +12,4 @@ export 'return_reasons.dart';
 export 'order_edits.dart';
 export 'collections.dart';
 export 'products.dart';
+export 'category.dart';

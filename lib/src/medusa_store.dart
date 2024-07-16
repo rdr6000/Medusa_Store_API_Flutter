@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import 'data/services/index.dart';
 
 class MedusaStore {
@@ -17,6 +18,7 @@ class MedusaStore {
     required this.shippingOptions,
     required this.swaps,
     required this.collections,
+    required this.categories,
     required this.giftCards,
     required this.paymentMethods,
   });
@@ -56,6 +58,7 @@ class MedusaStore {
       shippingOptions: ShippingOptionsResource(dio),
       swaps: SwapsResource(dio),
       collections: CollectionsResource(dio),
+      categories: CategoriesResource(dio),
       giftCards: GiftCardsResource(dio),
       paymentMethods: PaymentMethodsResource(dio),
     );
@@ -75,6 +78,7 @@ class MedusaStore {
   final ShippingOptionsResource shippingOptions;
   final SwapsResource swaps;
   final CollectionsResource collections;
+  final CategoriesResource categories;
   final GiftCardsResource giftCards;
   final PaymentMethodsResource paymentMethods;
 }

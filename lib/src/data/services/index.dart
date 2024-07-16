@@ -12,3 +12,4 @@ export 'return_reasons.dart';
 export 'returns.dart';
 export 'shipping_options.dart';
 export 'swaps.dart';
+export 'categories.dart';
