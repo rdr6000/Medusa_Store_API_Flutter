@@ -5,13 +5,15 @@ class StoreCategoryRes {
   ProductCategory? category;
 
   StoreCategoryRes.fromJson(Map<String, dynamic> json) {
-    category = json['category'] != null ? ProductCategory.fromJson(json["category"]) : null;
+    category = json['product_categories'] != null
+        ? ProductCategory.fromJson(json["product_categories"])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (category != null) {
-      data['category'] = category?.toJson();
+      data['product_categories'] = category?.toJson();
     }
     return data;
   }
@@ -22,9 +24,9 @@ class StoreCategoryListRes {
   StoreCategoryListRes(this.category);
 
   factory StoreCategoryListRes.fromJson(json) {
-    if (json['category'] != null) {
+    if (json['product_categories'] != null) {
       var category = <ProductCategory>[];
-      json['category'].forEach((v) {
+      json['product_categories'].forEach((v) {
         category.add(ProductCategory.fromJson(v));
       });
       return StoreCategoryListRes(category);
@@ -34,7 +36,7 @@ class StoreCategoryListRes {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['category'] = category?.map((e) => e.toJson()).toList();
+    data['product_categories'] = category?.map((e) => e.toJson()).toList();
     return data;
   }
 }
