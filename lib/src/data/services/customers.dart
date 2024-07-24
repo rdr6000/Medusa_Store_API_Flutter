@@ -13,12 +13,14 @@ class CustomersResource extends BaseResource {
   /// @param {StorePostCustomersReq} payload information of customer
   /// @param customHeaders
   /// @return { ResponsePromise<StoreCustomersRes>}
-  Future<StoreCustomersRes?> create({StorePostCustomersReq? req, Map<String, dynamic>? customHeaders}) async {
+  Future<StoreCustomersRes?> create(
+      {StorePostCustomersReq? req, Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.post('/store/customers', data: req?.toJson());
+      final response =
+          await client.post('/store/customers', data: req?.toJson());
       if (response.statusCode == 200) {
         return StoreCustomersRes.fromJson(response.data);
       } else {
@@ -33,7 +35,8 @@ class CustomersResource extends BaseResource {
   ///Retrieves the customer that is currently logged
   /// @param customHeaders
   /// @return {ResponsePromise<StoreCustomersRes>}
-  Future<StoreCustomersRes?> retrieve({Map<String, dynamic>? customHeaders}) async {
+  Future<StoreCustomersRes?> retrieve(
+      {Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
@@ -56,12 +59,18 @@ class CustomersResource extends BaseResource {
   /// @param {StorePostCustomersCustomerReq} payload information to update customer with
   /// @param customHeaders
   /// @return {ResponsePromise<StoreCustomersRes>}
-  Future<StoreCustomersRes?> update({StorePostCustomersCustomerReq? req, Map<String, dynamic>? customHeaders}) async {
+  Future<StoreCustomersRes?> update(
+      {StorePostCustomersCustomerReq? req,
+      Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.post('/store/customers/me', data: req?.toJson());
+
+      Map body = req?.toJson() ?? {};
+      body.removeWhere((key, value) => value == null || value == '');
+
+      final response = await client.post('/store/customers/me', data: body);
       if (response.statusCode == 200) {
         return StoreCustomersRes.fromJson(response.data);
       } else {
@@ -79,12 +88,14 @@ class CustomersResource extends BaseResource {
   /// @return {ResponsePromise<StoreCustomersListOrdersRes>}
 
   Future<StoreCustomersListOrdersRes?> listOrders(
-      {Map<String, dynamic>? queryParameters, Map<String, dynamic>? customHeaders}) async {
+      {Map<String, dynamic>? queryParameters,
+      Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.get('/store/customers/me/orders', queryParameters: queryParameters);
+      final response = await client.get('/store/customers/me/orders',
+          queryParameters: queryParameters);
       if (response.statusCode == 200) {
         return StoreCustomersListOrdersRes.fromJson(response.data);
       } else {
@@ -101,12 +112,14 @@ class CustomersResource extends BaseResource {
   /// @param customHeaders
   /// @return {ResponsePromise<StoreCustomersRes>}
   Future<StoreCustomersRes?> resetPassword(
-      {StorePostCustomersCustomerPasswordTokenReq? req, Map<String, dynamic>? customHeaders}) async {
+      {StorePostCustomersCustomerPasswordTokenReq? req,
+      Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.post('/store/customers/password-reset', data: req?.toJson());
+      final response = await client.post('/store/customers/password-reset',
+          data: req?.toJson());
       if (response.statusCode == 200) {
         return StoreCustomersRes.fromJson(response.data);
       } else {
@@ -124,12 +137,14 @@ class CustomersResource extends BaseResource {
   /// @param customHeaders
   /// @return {ResponsePromise}
   Future generatePasswordToken(
-      {StorePostCustomersCustomerPasswordTokenReq? req, Map<String, dynamic>? customHeaders}) async {
+      {StorePostCustomersCustomerPasswordTokenReq? req,
+      Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.post('/store/customers/password-token', data: req?.toJson());
+      final response = await client.post('/store/customers/password-token',
+          data: req?.toJson());
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -143,12 +158,13 @@ class CustomersResource extends BaseResource {
 
   /// Add a Shipping Address to a Customer's saved addresses.
   Future addShippingAddress(
-      { required Address address, Map<String, dynamic>? customHeaders}) async {
+      {required Address address, Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.post('/store/customers/me/addresses', data: address.toJson());
+      final response = await client.post('/store/customers/me/addresses',
+          data: address.toJson());
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -159,16 +175,19 @@ class CustomersResource extends BaseResource {
       rethrow;
     }
   }
+
   /// Update the logged-in customer's saved Shipping Address's details.
   Future updateShippingAddress(
-      {
-        required String addressId,
-        required Address address, Map<String, dynamic>? customHeaders}) async {
+      {required String addressId,
+      required Address address,
+      Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.post('/store/customers/me/addresses/$addressId', data: address.toJson());
+      final response = await client.post(
+          '/store/customers/me/addresses/$addressId',
+          data: address.toJson());
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -182,14 +201,13 @@ class CustomersResource extends BaseResource {
 
   /// Delete an Address from the Customer's saved addresses.
   Future deleteShippingAddress(
-      {
-        required String addressId,
-       Map<String, dynamic>? customHeaders}) async {
+      {required String addressId, Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.delete('/store/customers/me/addresses/$addressId');
+      final response =
+          await client.delete('/store/customers/me/addresses/$addressId');
       if (response.statusCode == 200) {
         return response.data;
       } else {
