@@ -10,7 +10,7 @@ class Address {
   /// Id of the customer this address belongs to
   ///
   /// Example: "cus_01G2SG30J8C85S4A5CHM2S1NS2"
-  final String? customerId;
+  final String? customer_id;
 
   /// The details of the customer.
   final List<Customer>? customer;
@@ -23,22 +23,22 @@ class Address {
   /// First name
   ///
   /// Example: "Arno"
-  final String? firstName;
+  final String? first_name;
 
   /// Last name
   ///
   /// Example: "Willms"
-  final String? lastName;
+  final String? last_name;
 
   /// Address line 1
   ///
   /// Example: "14433 Kemmer Court"
-  final String? address1;
+  final String? address_1;
 
   /// Address line 2
   ///
   /// Example: "Suite 369"
-  final String? address2;
+  final String? address_2;
 
   /// City
   ///
@@ -50,7 +50,7 @@ class Address {
   /// The 2 character iso code of the country in lower case
   ///
   /// Example: "st"
-  final String? countryCode;
+  final String? country_code;
 
   /// Province
   ///
@@ -60,7 +60,7 @@ class Address {
   /// Postal code
   ///
   /// Example: 72093
-  final String? postalCode;
+  final String? postal_code;
 
   /// Phone number
   ///
@@ -68,35 +68,35 @@ class Address {
   final String? phone;
 
   /// The date with timezone at which the resource was created.
-  final DateTime? createdAt;
+  final DateTime? created_at;
 
   /// The date with timezone at which the resource was updated.
-  final DateTime? updatedAt;
+  final DateTime? updated_at;
 
   /// The date with timezone at which the resource was deleted.
-  final DateTime? deletedAt;
+  final DateTime? deleted_at;
 
   /// An optional key-value map with additional details
   final Map<String, dynamic>? metadata;
 
   Address({
     this.id,
-    this.customerId,
+    this.customer_id,
     this.customer,
     this.company,
-    this.firstName,
-    this.lastName,
-    this.address1,
-    this.address2,
+    this.first_name,
+    this.last_name,
+    this.address_1,
+    this.address_2,
     this.city,
     this.country,
-    this.countryCode,
+    this.country_code,
     this.province,
-    this.postalCode,
+    this.postal_code,
     this.phone,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
+    this.created_at,
+    this.updated_at,
+    this.deleted_at,
     this.metadata,
   });
 
@@ -114,22 +114,23 @@ class Address {
 
     return Address(
       id: json['id'],
-      customerId: json['customer_id'],
+      customer_id: json['customer_id'],
       company: json['company'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
+      first_name: json['first_name'],
+      last_name: json['last_name'],
       customer: customer,
-      address1: json['address_1'],
-      address2: json['address_2'],
+      address_1: json['address_1'],
+      address_2: json['address_2'],
       city: json['city'],
-      country: json['country'] != null ? Country.fromJson(json['country']) : null,
-      countryCode: json['country_code'],
+      country:
+          json['country'] != null ? Country.fromJson(json['country']) : null,
+      country_code: json['country_code'],
       province: json['province'],
-      postalCode: json['postal_code'],
+      postal_code: json['postal_code'],
       phone: json['phone'],
-      createdAt: DateTime.tryParse(json['created_at'] ?? '')?.toLocal(),
-      updatedAt: DateTime.tryParse(json['updated_at'] ?? '')?.toLocal(),
-      deletedAt: DateTime.tryParse(json['deleted_at'] ?? '')?.toLocal(),
+      created_at: DateTime.tryParse(json['created_at'] ?? '')?.toLocal(),
+      updated_at: DateTime.tryParse(json['updated_at'] ?? '')?.toLocal(),
+      deleted_at: DateTime.tryParse(json['deleted_at'] ?? '')?.toLocal(),
       metadata: json['metadata'],
     );
   }
@@ -141,8 +142,8 @@ class Address {
       json['id'] = id;
     }
 
-    if (customerId != null) {
-      json['customer_id'] = customerId;
+    if (customer_id != null) {
+      json['customer_id'] = customer_id;
     }
 
     if (customer != null) {
@@ -153,28 +154,28 @@ class Address {
       json['company'] = company;
     }
 
-    if (firstName != null) {
-      json['first_name'] = firstName;
+    if (first_name != null) {
+      json['first_name'] = first_name;
     }
 
-    if (lastName != null) {
-      json['last_name'] = lastName;
+    if (last_name != null) {
+      json['last_name'] = last_name;
     }
 
-    if (address1 != null) {
-      json['address_1'] = address1;
+    if (address_1 != null) {
+      json['address_1'] = address_1;
     }
 
-    if (address2 != null) {
-      json['address_2'] = address2;
+    if (address_2 != null) {
+      json['address_2'] = address_2;
     }
 
     if (city != null) {
       json['city'] = city;
     }
 
-    if (countryCode != null) {
-      json['country_code'] = countryCode;
+    if (country_code != null) {
+      json['country_code'] = country_code;
     }
 
     if (country != null) {
@@ -185,23 +186,23 @@ class Address {
       json['province'] = province;
     }
 
-    if (postalCode != null) {
-      json['postal_code'] = postalCode;
+    if (postal_code != null) {
+      json['postal_code'] = postal_code;
     }
 
     if (phone != null) {
       json['phone'] = phone;
     }
 
-    if (createdAt != null) {
-      json['created_at'] = createdAt.toString();
+    if (created_at != null) {
+      json['created_at'] = created_at.toString();
     }
-    if (updatedAt != null) {
-      json['updated_at'] = updatedAt.toString();
+    if (updated_at != null) {
+      json['updated_at'] = updated_at.toString();
     }
 
-    if (deletedAt != null) {
-      json['deleted_at'] = deletedAt.toString();
+    if (deleted_at != null) {
+      json['deleted_at'] = deleted_at.toString();
     }
 
     if (metadata != null) {

@@ -164,7 +164,7 @@ class CustomersResource extends BaseResource {
         client.options.headers.addAll(customHeaders);
       }
       final response = await client.post('/store/customers/me/addresses',
-          data: address.toJson());
+          data: {'address': address.toJson()});
       if (response.statusCode == 200) {
         return response.data;
       } else {
