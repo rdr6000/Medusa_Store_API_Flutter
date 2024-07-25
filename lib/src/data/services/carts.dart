@@ -227,6 +227,7 @@ class CartsResource extends BaseResource {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
+      print(req!.toJson());
       final response = await client.post('/store/carts/$cartId', data: req);
       if (response.statusCode == 200) {
         return StoreCartsRes.fromJson(response.data);

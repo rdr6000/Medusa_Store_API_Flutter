@@ -11,10 +11,10 @@ class StorePostCartsCartReq {
   final String? email;
 
   /// A full billing address object.
-  final String? billingAddress;
+  final Map? billingAddress;
 
   /// A full shipping address object.
-  final String? shippingAddress;
+  final Map? shippingAddress;
 
   /// An array of gift card codes to add to the cart.
   final List<String>? giftCards;
