@@ -1,7 +1,5 @@
-import 'customer_billing_address.dart';
-
 class StorePostCustomersCustomerReq {
-  BillingAddress? billingAddress;
+  String? billingAddress;
   String? email;
   String? firstName;
   String? lastName;
@@ -20,8 +18,7 @@ class StorePostCustomersCustomerReq {
   });
 
   StorePostCustomersCustomerReq.fromJson(Map<String, dynamic> json) {
-    billingAddress = json['billing_address'] != null ? BillingAddress.fromJson(
-        json['billing_address']) : null;
+    billingAddress = json['billing_address'];
     email = json['email'];
     firstName = json['first_name'];
     lastName = json['last_name'];
@@ -32,9 +29,7 @@ class StorePostCustomersCustomerReq {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (billingAddress != null) {
-      data['billing_address'] = billingAddress?.toJson();
-    }
+    data['billing_address'] = billingAddress;
     data['email'] = email;
     data['first_name'] = firstName;
     data['last_name'] = lastName;
