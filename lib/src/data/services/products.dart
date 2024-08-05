@@ -108,8 +108,10 @@ class ProductsResource extends BaseResource {
           highlightPostTag: req.highlightPostTag,
           filter: queries.join(' AND '));
 
+      log(searchRes.toJson().toString());
+
       final response =
-      await client.post('/store/products/search', data: searchRes);
+          await client.post('/store/products/search', data: searchRes);
       if (response.statusCode == 200) {
         return StorePostSearchRes.fromJson(response.data);
       } else {
