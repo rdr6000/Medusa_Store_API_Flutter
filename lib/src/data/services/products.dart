@@ -67,8 +67,12 @@ class ProductsResource extends BaseResource {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client
-          .post('/store/products/search', data: req);
+      if (req != null) {
+        req.attributesToHighlight = ["*"];
+        req.highlightPreTag = "__ais-highlight__";
+        req.highlightPostTag = "__/ais-highlight__";
+      }
+      final response = await client.post('/store/products/search', data: req);
       if (response.statusCode == 200) {
         return StorePostSearchRes.fromJson(response.data);
       } else {
