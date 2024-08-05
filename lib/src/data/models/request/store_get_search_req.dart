@@ -20,13 +20,11 @@ class StoreGetSearchReq {
 
   String? highlightPostTag = '__/ais-highlight__';
 
-  dynamic filter;
 
   StoreGetSearchReq(
       {this.q,
       this.offset,
       this.limit,
-      this.filter,
       this.minPrice = 0,
       this.maxPrice = 3000,
       this.sort,
@@ -43,7 +41,6 @@ class StoreGetSearchReq {
     q = json['q'];
     offset = json['offset'];
     limit = json['limit'];
-    filter = json['filter'];
     orderBy = json['orderBy'];
     sort = json['sort'] != null ? List<String>.from(json['sort']) : <String>[];
     currencyCode = json['currencyCode'];
@@ -66,7 +63,6 @@ class StoreGetSearchReq {
     data['q'] = q;
     data['offset'] = offset;
     data['limit'] = limit;
-    data['filter'] = filter;
     data['orderBy'] = orderBy;
     data['minPrice'] = minPrice;
     data['sort'] = sort;

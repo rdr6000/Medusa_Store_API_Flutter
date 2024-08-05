@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:medusa_store_flutter/src/data/models/request/store_get_search_req.dart';
-
 import '../models/request/index.dart';
 import '../models/response/index.dart';
 import 'base.dart';
@@ -75,24 +73,22 @@ class ProductsResource extends BaseResource {
         return null;
       }
 
-      var queries = req.filter;
+      var queries = [];
 
       var offset = (req.page! - 1) * pageSize;
 
       final categories = req.categories;
       if (categories != null) {
-        queries.push("categories.handle IN [${categories.join(', ')}]");
+        queries.add("categories.handle IN [${categories.join(', ')}]");
       }
 
       if (req.minPrice != null) {
-        queries.push(
-            "(variants.prices.amount >= ${req
-                .minPrice} AND variants.prices.currency_code = \"${req
-                .currencyCode}\")");
+        queries.add(
+            "(variants.prices.amount >= ${req.minPrice} AND variants.prices.currency_code = \"${req.currencyCode}\")");
       }
 
       if (req.maxPrice != null) {
-        queries.push(
+        queries.add(
             "(variants.prices.amount <= ${req
                 .maxPrice} AND variants.prices.currency_code = \"${req
                 .currencyCode}\")");
