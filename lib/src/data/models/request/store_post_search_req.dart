@@ -1,5 +1,3 @@
-enum OrderAscDesc { asc, desc }
-
 class StorePostSearchReq {
   String? q;
   int? offset;
