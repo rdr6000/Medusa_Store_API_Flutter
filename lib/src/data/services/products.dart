@@ -64,7 +64,6 @@ class ProductsResource extends BaseResource {
   Future<StorePostSearchRes?> search(
       {StoreGetSearchReq? req, Map<String, dynamic>? customHeaders}) async {
     try {
-      const pageSize = 15;
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
@@ -73,9 +72,11 @@ class ProductsResource extends BaseResource {
         return null;
       }
 
+      var pageSize = req.limit ?? 15;
+
       var queries = [];
 
-      var offset = (req.page! - 1) * pageSize;
+      var offset = req.offset ?? (req.page! - 1) * pageSize;
 
       final categories = req.categories;
       if (categories != null) {
@@ -89,9 +90,7 @@ class ProductsResource extends BaseResource {
 
       if (req.maxPrice != null) {
         queries.add(
-            "(variants.prices.amount <= ${req
-                .maxPrice} AND variants.prices.currency_code = \"${req
-                .currencyCode}\")");
+            "(variants.prices.amount <= ${req.maxPrice} AND variants.prices.currency_code = \"${req.currencyCode}\")");
       }
 
       req.attributesToHighlight = ["*"];
