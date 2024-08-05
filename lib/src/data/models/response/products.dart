@@ -41,7 +41,7 @@ class StoreProductsRes {
 
 class StorePostSearchRes {
   List<dynamic>? hits;
-  String? query = "r";
+  String? query;
   int? processingTimeMs;
   int? limit;
   int? offset;

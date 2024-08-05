@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:medusa_store_flutter/src/data/models/request/store_get_search_req.dart';
+
 import '../models/request/index.dart';
 import '../models/response/index.dart';
 import 'base.dart';
@@ -27,8 +29,8 @@ class ProductsResource extends BaseResource {
       } else {
         throw response;
       }
-    } catch (error,stackTrace) {
-      log(error.toString(),stackTrace:stackTrace);
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
       rethrow;
     }
   }
@@ -51,8 +53,8 @@ class ProductsResource extends BaseResource {
       } else {
         throw response;
       }
-    } catch (error,stackTrace) {
-      log(error.toString(),stackTrace:stackTrace);
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
       rethrow;
     }
   }
@@ -62,24 +64,63 @@ class ProductsResource extends BaseResource {
   /// @param customHeaders
   /// @return {ResponsePromise<StorePostSearchRes>}
   Future<StorePostSearchRes?> search(
-      {StorePostSearchReq? req, Map<String, dynamic>? customHeaders}) async {
+      {StoreGetSearchReq? req, Map<String, dynamic>? customHeaders}) async {
     try {
+      const pageSize = 15;
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      if (req != null) {
-        req.attributesToHighlight = ["*"];
-        req.highlightPreTag = "__ais-highlight__";
-        req.highlightPostTag = "__/ais-highlight__";
+
+      if (req == null) {
+        return null;
       }
-      final response = await client.post('/store/products/search', data: req);
+
+      var queries = req.filter;
+
+      var offset = (req.page! - 1) * pageSize;
+
+      final categories = req.categories;
+      if (categories != null) {
+        queries.push("categories.handle IN [${categories.join(', ')}]");
+      }
+
+      if (req.minPrice != null) {
+        queries.push(
+            "(variants.prices.amount >= ${req
+                .minPrice} AND variants.prices.currency_code = \"${req
+                .currencyCode}\")");
+      }
+
+      if (req.maxPrice != null) {
+        queries.push(
+            "(variants.prices.amount <= ${req
+                .maxPrice} AND variants.prices.currency_code = \"${req
+                .currencyCode}\")");
+      }
+
+      req.attributesToHighlight = ["*"];
+      req.highlightPreTag = "__ais-highlight__";
+      req.highlightPostTag = "__/ais-highlight__";
+
+      StorePostSearchReq searchRes = StorePostSearchReq(
+          q: req.q,
+          offset: offset,
+          sort: req.orderBy != null ? ["${req.orderBy}:${req.order}"] : [],
+          limit: pageSize,
+          attributesToHighlight: req.attributesToHighlight,
+          highlightPreTag: req.highlightPreTag,
+          highlightPostTag: req.highlightPostTag,
+          filter: queries.join(' AND '));
+
+      final response =
+      await client.post('/store/products/search', data: searchRes);
       if (response.statusCode == 200) {
         return StorePostSearchRes.fromJson(response.data);
       } else {
         throw response;
       }
-    } catch (error,stackTrace) {
-      log(error.toString(),stackTrace:stackTrace);
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
       rethrow;
     }
   }
