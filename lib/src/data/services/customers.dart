@@ -146,8 +146,8 @@ class CustomersResource extends BaseResource {
       }
       final response = await client.post('/store/customers/password-token',
           data: req?.toJson());
-      if (response.statusCode == 200) {
-        return response.data;
+      if (response.statusCode == 204) {
+        return response.data ?? {};
       } else {
         throw response;
       }
