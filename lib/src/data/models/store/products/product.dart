@@ -113,7 +113,7 @@ class Product  {
   /// An optional key-value map with additional details
   final Map<String, dynamic>? metadata;
 
-  const Product({
+  Product({
     this.id,
     this.title,
     this.subtitle,
