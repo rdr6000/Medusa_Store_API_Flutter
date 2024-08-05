@@ -1,11 +1,11 @@
 import '../../../enum/enums.dart';
 import '../others/index.dart';
-import 'product_option.dart';
-import 'product_variant.dart';
-import 'product_collection.dart';
 import 'product_category.dart';
-import 'product_type.dart';
+import 'product_collection.dart';
+import 'product_option.dart';
 import 'product_tag.dart';
+import 'product_type.dart';
+import 'product_variant.dart';
 
 class Product  {
   /// The product's id
@@ -36,7 +36,7 @@ class Product  {
   final String? thumbnail;
 
   /// The details of the product options that are defined for the product. the product's variants will have a unique combination of values of the product's options.
-  final List<ProductOption>? options;
+  List<ProductOption>? options;
 
   /// The details of the product variants that belong to the product. each will have a unique combination of values of the product's options.
   final List<ProductVariant>? variants;

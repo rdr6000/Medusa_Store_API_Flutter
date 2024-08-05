@@ -1,5 +1,5 @@
-import 'product_option_value.dart';
 import 'product.dart';
+import 'product_option_value.dart';
 class ProductOption {
   /// The product option's id
   ///
@@ -13,7 +13,7 @@ class ProductOption {
   final String? title;
 
   /// The details of the values of the product option.
-  final List<ProductOptionValue>? values;
+  List<ProductOptionValue>? values;
 
   /// The id of the product that this product option belongs to.
   ///
