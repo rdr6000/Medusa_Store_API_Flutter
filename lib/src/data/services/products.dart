@@ -76,7 +76,7 @@ class ProductsResource extends BaseResource {
 
       var queries = [];
 
-      var offset = req.offset ?? (req.page! - 1) * pageSize;
+      var offset = req.offset;
 
       final categories = req.categories;
       if (categories != null) {
