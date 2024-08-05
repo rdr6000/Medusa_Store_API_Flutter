@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:medusa_store_flutter/src/data/models/store/others/address.dart';
 
 import '../models/request/index.dart';
+import '../models/request/store_post_customers_customer_password_token_submit.dart';
 import '../models/response/index.dart';
 import 'base.dart';
 
@@ -108,11 +109,11 @@ class CustomersResource extends BaseResource {
   }
 
   /// Resets customer password
-  /// @param {StorePostCustomersCustomerPasswordTokenReq} payload info used to reset customer password
+  /// @param {StorePostCustomersCustomerPasswordTokenSubmit} payload info used to reset customer password
   /// @param customHeaders
   /// @return {ResponsePromise<StoreCustomersRes>}
   Future<StoreCustomersRes?> resetPassword(
-      {StorePostCustomersCustomerPasswordTokenReq? req,
+      {StorePostCustomersCustomerPasswordTokenSubmit? req,
       Map<String, dynamic>? customHeaders}) async {
     try {
       if (customHeaders != null) {
