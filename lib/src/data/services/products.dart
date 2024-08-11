@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import '../models/request/index.dart';
-import '../models/response/index.dart';
+import 'package:medusa_store_flutter/medusa_store.dart';
+
 import 'base.dart';
 
 class ProductsResource extends BaseResource {
@@ -48,6 +48,83 @@ class ProductsResource extends BaseResource {
       );
       if (response.statusCode == 200) {
         return StoreProductsRes.fromJson(response.data);
+      } else {
+        throw response;
+      }
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<Customer?> getWishlist({Map<String, dynamic>? customHeaders}) async {
+    try {
+      if (customHeaders != null) {
+        client.options.headers.addAll(customHeaders);
+      }
+
+      final response = await client.get(
+        '/store/customers/me',
+      );
+      if (response.statusCode == 200) {
+        return Customer.fromJson(response.data);
+      } else {
+        throw response;
+      }
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<Customer?> addWishlist(
+      {required String variantID,
+      required String customerID,
+      Map<String, dynamic>? customHeaders}) async {
+    try {
+      if (customHeaders != null) {
+        client.options.headers.addAll(customHeaders);
+      }
+
+      final data = {
+        "variant_id": variantID,
+        "quantity": 1,
+      };
+
+      final response = await client.post(
+        '/store/customers/$customerID/wishlist',
+        data: data,
+      );
+      if (response.statusCode == 200) {
+        return Customer.fromJson(response.data);
+      } else {
+        throw response;
+      }
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<Customer?> removeWishlist(
+      {required int index,
+      required String customerID,
+      Map<String, dynamic>? customHeaders}) async {
+    try {
+      if (customHeaders != null) {
+        client.options.headers.addAll(customHeaders);
+      }
+
+      final data = {
+        "index": index,
+      };
+
+      final response = await client.delete(
+        '/store/customers/$customerID/wishlist',
+        data: data,
+      );
+      if (response.statusCode == 200) {
+        return Customer.fromJson(response.data);
       } else {
         throw response;
       }
