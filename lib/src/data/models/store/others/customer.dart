@@ -1,6 +1,6 @@
+import '../orders/order.dart';
 import 'address.dart';
 import 'customer_group.dart';
-import '../orders/order.dart';
 
 class Customer {
   /// The customer's id
@@ -9,7 +9,7 @@ class Customer {
   final String? id;
 
   /// The customer's email
-  final String email;
+  final String? email;
 
   /// The customer's first name
   ///
