@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:medusa_store_flutter/medusa_store.dart';
+import 'package:medusa_store_flutter/src/data/models/response/attributes.dart';
 
 import 'base.dart';
 
@@ -125,6 +126,34 @@ class ProductsResource extends BaseResource {
       );
       if (response.statusCode == 200) {
         return Customer.fromJson(response.data);
+      } else {
+        throw response;
+      }
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  /// Uses https://github.com/vholik/medusa-custom-attributes
+
+  Future<List<Attributes>> getAttributes(
+      {Map<String, dynamic>? customHeaders}) async {
+    try {
+      if (customHeaders != null) {
+        client.options.headers.addAll(customHeaders);
+      }
+
+      final response = await client.get(
+        '/store/attributes',
+      );
+
+      if (response.statusCode == 200) {
+        final List<Attributes> attributes = [];
+        response.data.forEach((attribute) {
+          attributes.add(Attributes.fromJson(attribute));
+        });
+        return attributes;
       } else {
         throw response;
       }
