@@ -17,10 +17,10 @@ class StorePostCartsCartReq {
   final Map? shippingAddress;
 
   /// An array of gift card codes to add to the cart.
-  final List<String>? giftCards;
+  final List? giftCards;
 
   /// An array of discount codes to add to the cart.
-  final List<String>? discounts;
+  final List? discounts;
 
   /// The id of the customer to associate the cart with.
   final String? customerId;
