@@ -100,19 +100,28 @@ class Return {
 
     if (json['shipping_method'] != null) {
       shippingMethod = <ShippingMethod>[];
-      json['shipping_method']
-          .forEach((e) => shippingMethod!.add(ShippingMethod.fromJson(e)));
+      if (json['shipping_method'] is List) {
+        json['shipping_method']
+            .forEach((e) => shippingMethod!.add(ShippingMethod.fromJson(e)));
+      } else {
+        shippingMethod!.add(ShippingMethod.fromJson(json['shipping_method']));
+      }
     }
 
     return Return(
       id: json['id'],
-      status: ReturnStatus.values.where((e) => e.value == (json['status'] ?? '')).firstOrNull ?? ReturnStatus.requested,
+      status: ReturnStatus.values
+              .where((e) => e.value == (json['status'] ?? ''))
+              .firstOrNull ??
+          ReturnStatus.requested,
       swapId: json['swap_id'],
       swap: json['swap'] != null ? Swap.fromJson(json['swap']) : null,
       orderId: json['order_id'],
       order: json['order'] != null ? Order.fromJson(json['order']) : null,
       claimOrderId: json['claim_order_id'],
-      claimOrder: json['claim_order'] != null ? ClaimOrder.fromJson(json['claim_order']) : null,
+      claimOrder: json['claim_order'] != null
+          ? ClaimOrder.fromJson(json['claim_order'])
+          : null,
       shippingData: json['shipping_data'],
       refundAmount: json['refund_amount'],
       noNotification: json['no_notification'],
@@ -147,4 +156,3 @@ class Return {
     return json;
   }
 }
-
