@@ -95,10 +95,37 @@ class CustomersResource extends BaseResource {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
+      queryParameters ??= {};
+      queryParameters['expand'] =
+          'customer,billing_address,shipping_address,discounts,discounts.rule,shipping_methods,shipping_methods.shipping_option,payments,items,fulfillments,fulfillments.tracking_links,returns,returns.shipping_method,returns.shipping_method.shipping_option,returns.shipping_method.tax_lines,refunds,claims.claim_items.item,claims.fulfillments,claims.return_order,claims.additional_items.variant.product.profiles,swaps.return_order,swaps.additional_items.variant.product.profiles,swaps.fulfillments,returnable_items,edits';
+
       final response = await client.get('/store/customers/me/orders',
           queryParameters: queryParameters);
       if (response.statusCode == 200) {
         return StoreCustomersListOrdersRes.fromJson(response.data);
+      } else {
+        throw response;
+      }
+    } catch (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<StoreCustomersOrdersRes?> retrieveOrder(
+      {required String orderId, Map<String, dynamic>? customHeaders}) async {
+    try {
+      if (customHeaders != null) {
+        client.options.headers.addAll(customHeaders);
+      }
+      final queryParameters = {
+        'expand':
+            'customer,billing_address,shipping_address,discounts,discounts.rule,shipping_methods,shipping_methods.shipping_option,payments,items,fulfillments,fulfillments.tracking_links,returns,returns.shipping_method,returns.shipping_method.shipping_option,returns.shipping_method.tax_lines,refunds,claims.claim_items.item,claims.fulfillments,claims.return_order,claims.additional_items.variant.product.profiles,swaps.return_order,swaps.additional_items.variant.product.profiles,swaps.fulfillments,returnable_items,edits'
+      };
+      final response = await client.get('/store/orders/$orderId',
+          queryParameters: queryParameters);
+      if (response.statusCode == 200) {
+        return StoreCustomersOrdersRes.fromJson(response.data);
       } else {
         throw response;
       }

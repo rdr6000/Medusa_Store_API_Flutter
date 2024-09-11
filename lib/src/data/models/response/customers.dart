@@ -38,3 +38,21 @@ class StoreCustomersListOrdersRes {
     return data;
   }
 }
+
+class StoreCustomersOrdersRes {
+  final Order order;
+
+  StoreCustomersOrdersRes(this.order);
+
+  factory StoreCustomersOrdersRes.fromJson(Map<String, dynamic> json) {
+    return StoreCustomersOrdersRes(
+      Order.fromJson(json['order']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['order'] = order.toJson();
+    return data;
+  }
+}
