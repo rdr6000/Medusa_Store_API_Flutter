@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../../../enum/enums.dart';
 import '../index.dart';
 
@@ -101,10 +99,9 @@ class Return {
     }
 
     if (json['shipping_method'] != null) {
-      log(json['shipping_method'].toString());
       shippingMethod = <ShippingMethod>[];
-      json['shipping_method'].forEach((e) => shippingMethod!
-          .add(ShippingMethod.fromJson(json['shipping_method'])));
+      json['shipping_method']
+          .forEach((e) => shippingMethod!.add(ShippingMethod.fromJson(e)));
     }
 
     return Return(
