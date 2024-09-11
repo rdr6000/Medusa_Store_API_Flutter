@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../../enum/enums.dart';
 import '../discount/index.dart';
 import '../others/index.dart';
@@ -234,6 +236,8 @@ class Order {
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
+    log(json.toString());
+
     List<Discount>? discounts;
     List<GiftCard>? giftCards;
     List<ShippingMethod>? shippingMethods;
@@ -300,7 +304,7 @@ class Order {
     return Order(
       id: json['id'],
       status:
-          OrderStatus.values.firstWhere((e) => e.value == (json['status'] ?? ''), orElse: () => OrderStatus.pending),
+      OrderStatus.values.firstWhere((e) => e.value == (json['status'] ?? ''), orElse: () => OrderStatus.pending),
       fulfillmentStatus: FulfillmentStatus.values.firstWhere((e) => e.value == (json['fulfillment_status'] ?? ''),
           orElse: () => FulfillmentStatus.notFulfilled),
       paymentStatus: PaymentStatus.values
@@ -406,6 +410,10 @@ class Order {
     json['refundable_amount'] = refundableAmount;
     json['gift_card_total'] = giftCardTotal;
     json['gift_card_tax_total'] = giftCardTaxTotal;
+    json['raw_discount_total'] = rawDiscountTotal;
+    json['created_at'] = createdAt.toString();
+    json['updated_at'] = updatedAt.toString();
+    json['metadata'] = metadata;
     return json;
   }
 }
