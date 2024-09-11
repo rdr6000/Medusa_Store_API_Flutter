@@ -1,6 +1,5 @@
 import '../../../enum/enums.dart';
 import '../index.dart';
-import 'index.dart';
 
 class Return {
   /// The return's id
@@ -96,7 +95,7 @@ class Return {
 
     if (json['items'] != null) {
       items = <ReturnItem>[];
-      json['items'].forEach((e) => items!.add(ReturnItem.fromJson(json['items'])));
+      json['items'].forEach((e) => items!.add(ReturnItem.fromJson(e)));
     }
 
     if (json['shipping_method'] != null) {
