@@ -97,7 +97,9 @@ class CustomersResource extends BaseResource {
       }
       queryParameters ??= {};
       queryParameters['expand'] =
-          'customer,billing_address,shipping_address,discounts,discounts.rule,shipping_methods,shipping_methods.shipping_option,payments,items,fulfillments,fulfillments.tracking_links,returns,returns.shipping_method,returns.shipping_method.shipping_option,returns.shipping_method.tax_lines,refunds,claims.claim_items.item,claims.fulfillments,claims.return_order,claims.additional_items.variant.product.profiles,swaps.return_order,swaps.additional_items.variant.product.profiles,swaps.fulfillments,returnable_items,edits';
+          'customer,billing_address,shipping_address,discounts,discounts.rule,shipping_methods,shipping_methods.shipping_option,payments,items,fulfillments,fulfillments.tracking_links,returns,returns.shipping_method,returns.shipping_method.shipping_option,returns.shipping_method.tax_lines,refunds,claims.claim_items.item,claims.fulfillments,claims.return_order,claims.additional_items.variant.product.profiles,swaps.return_order,swaps.additional_items.variant.product.profiles,swaps.fulfillments,edits';
+      queryParameters['fields'] =
+          'metadata,updated_at,status,fulfillment_status,payment_status,display_id,cart_id,currency_code,canceled_at,sales_channel_id';
 
       final response = await client.get('/store/customers/me/orders',
           queryParameters: queryParameters);

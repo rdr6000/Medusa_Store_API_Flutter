@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../../../enum/enums.dart';
 import '../discount/index.dart';
 import '../others/index.dart';
@@ -236,8 +234,6 @@ class Order {
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
-    log(json.toString());
-
     List<Discount>? discounts;
     List<GiftCard>? giftCards;
     List<ShippingMethod>? shippingMethods;
