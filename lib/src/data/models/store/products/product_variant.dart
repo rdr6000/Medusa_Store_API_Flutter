@@ -1,6 +1,4 @@
-import '../others/money_amount.dart';
-import 'product.dart';
-import 'product_option_value.dart';
+import 'package:medusa_store_flutter/medusa_store.dart';
 
 class ProductVariant {
   /// The product variant's id
@@ -112,6 +110,8 @@ class ProductVariant {
   /// An optional key-value map with additional details
   final Map<String, dynamic>? metadata;
 
+  final List<ProductVariantImages>? images;
+
   ProductVariant({
     this.id,
     this.title,
@@ -141,11 +141,13 @@ class ProductVariant {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.images,
   });
 
   factory ProductVariant.fromJson(Map<String, dynamic> json) {
     List<MoneyAmount>? prices;
     List<ProductOptionValue>? options;
+    List<ProductVariantImages>? images;
     if (json['prices'] != null) {
       prices = <MoneyAmount>[];
       json['prices'].forEach((v) {
@@ -158,6 +160,13 @@ class ProductVariant {
         options!.add(ProductOptionValue.fromJson(v));
       });
     }
+    if (json['images'] != null) {
+      images = <ProductVariantImages>[];
+      json['images'].forEach((v) {
+        images!.add(ProductVariantImages.fromJson(v));
+      });
+    }
+
 
     return ProductVariant(
       id: json['id'],
@@ -182,6 +191,7 @@ class ProductVariant {
       height: json['height'],
       width: json['width'],
       options: options,
+      images: images,
       metadata: json['metadata'],
     );
   }
@@ -213,6 +223,9 @@ class ProductVariant {
     data['width'] = width;
     if (options != null) {
       data['options'] = options!.map((v) => v.toJson()).toList();
+    }
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
     data['metadata'] = metadata;
     return data;
