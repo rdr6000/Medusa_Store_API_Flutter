@@ -1,17 +1,16 @@
-
 import '../store/products/product_collection.dart';
 
 class StoreCollectionsRes {
   ProductCollection? collection;
 
-  StoreCollectionsRes.fromJson(Map<String, dynamic> json) {
-    collection = json['collection'] != null ? ProductCollection.fromJson(json["collection"]) : null;
+  StoreCollectionsRes.fromJson(Map<String, dynamic>? json) {
+    collection = json != null ? ProductCollection.fromJson(json) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    Map<String, dynamic> data = <String, dynamic>{};
     if (collection != null) {
-      data['collection'] = collection?.toJson();
+      data = collection!.toJson();
     }
     return data;
   }
@@ -22,9 +21,9 @@ class StoreCollectionsListRes {
   StoreCollectionsListRes(this.collections);
 
   factory StoreCollectionsListRes.fromJson(json) {
-    if (json['collections'] != null) {
+    if (json != null) {
       var collections = <ProductCollection>[];
-      json['collections'].forEach((v) {
+      json.forEach((v) {
         collections.add(ProductCollection.fromJson(v));
       });
       return StoreCollectionsListRes(collections);
@@ -32,9 +31,12 @@ class StoreCollectionsListRes {
     return StoreCollectionsListRes(null);
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['collections'] = collections?.map((e) => e.toJson()).toList();
-    return data;
+  Map<String, dynamic>? toJson() {
+    if (collections == null) {
+      return null;
+    }
+    return {
+      'collections': collections!.map((e) => e.toJson()).toList(),
+    };
   }
 }
