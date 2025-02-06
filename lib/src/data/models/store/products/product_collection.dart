@@ -32,6 +32,13 @@ class ProductCollection {
   /// An optional key-value map with additional details
   final Map<String, dynamic>? metadata;
 
+  final String? thumbnail;
+  final int? displayVisibility;
+  final int? rank;
+  final bool? isFeatured;
+  final bool? isActive;
+  final List<String>? images;
+
   ProductCollection({
     this.id,
     required this.title,
@@ -41,13 +48,23 @@ class ProductCollection {
     this.updatedAt,
     this.deletedAt,
     this.metadata,
+    this.thumbnail,
+    this.displayVisibility,
+    this.rank,
+    this.isFeatured,
+    this.isActive,
+    this.images,
   });
 
   factory ProductCollection.fromJson(Map<String, dynamic> json) {
     List<Product>? products;
     if (json['products'] != null) {
       products = <Product>[];
-      json['products'].forEach((e) => products!.add(Product.fromJson(json['products'])));
+      json['products'].forEach((e) => products!.add(Product.fromJson(e)));
+    }
+    List<String>? images;
+    if (json['images'] != null) {
+      images = List<String>.from(json['images']);
     }
     return ProductCollection(
       id: json['id'],
@@ -58,6 +75,12 @@ class ProductCollection {
       updatedAt: DateTime.tryParse(json['updated_at'] ?? '')?.toLocal(),
       deletedAt: DateTime.tryParse(json['deleted_at'] ?? '')?.toLocal(),
       metadata: json['metadata'],
+      thumbnail: json['thumbnail'],
+      displayVisibility: json['displayVisibility'],
+      rank: json['rank'],
+      isFeatured: json['is_featured'],
+      isActive: json['is_active'],
+      images: images,
     );
   }
 
@@ -67,14 +90,20 @@ class ProductCollection {
     json['title'] = title;
     json['handle'] = handle;
     json['products'] = products?.map((e) => e.toJson()).toList();
-    json['created_at'] = createdAt.toString();
-    json['updated_at'] = updatedAt.toString();
-    json['deleted_at'] = deletedAt.toString();
+    json['created_at'] = createdAt?.toIso8601String();
+    json['updated_at'] = updatedAt?.toIso8601String();
+    json['deleted_at'] = deletedAt?.toIso8601String();
     json['metadata'] = metadata;
+    json['thumbnail'] = thumbnail;
+    json['displayVisibility'] = displayVisibility;
+    json['rank'] = rank;
+    json['is_featured'] = isFeatured;
+    json['is_active'] = isActive;
+    json['images'] = images;
     return json;
   }
 
-  ProductCollection copyWith(
+  ProductCollection copyWith({
     String? id,
     String? title,
     String? handle,
@@ -83,7 +112,13 @@ class ProductCollection {
     DateTime? updatedAt,
     DateTime? deletedAt,
     Map<String, dynamic>? metadata,
-  ) {
+    String? thumbnail,
+    int? displayVisibility,
+    int? rank,
+    bool? isFeatured,
+    bool? isActive,
+    List<String>? images,
+  }) {
     return ProductCollection(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -93,6 +128,12 @@ class ProductCollection {
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt ?? this.deletedAt,
       metadata: metadata ?? this.metadata,
+      thumbnail: thumbnail ?? this.thumbnail,
+      displayVisibility: displayVisibility ?? this.displayVisibility,
+      rank: rank ?? this.rank,
+      isFeatured: isFeatured ?? this.isFeatured,
+      isActive: isActive ?? this.isActive,
+      images: images ?? this.images,
     );
   }
 }
