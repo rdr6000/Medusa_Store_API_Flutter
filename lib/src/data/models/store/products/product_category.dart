@@ -51,6 +51,8 @@ class ProductCategory {
 
   /// The date with timezone at which the resource was updated.
   final DateTime? updatedAt;
+  final String? thumbnail;
+  final int? displayVisibility;
 
   ProductCategory({
     this.id,
@@ -65,6 +67,8 @@ class ProductCategory {
     this.products,
     this.createdAt,
     this.updatedAt,
+    this.thumbnail,
+    this.displayVisibility,
   });
 
   factory ProductCategory.fromJson(Map<String, dynamic> json) {
@@ -87,6 +91,8 @@ class ProductCategory {
       products: products,
       createdAt: DateTime.tryParse(json['created_at'] ?? '')?.toLocal(),
       updatedAt: DateTime.tryParse(json['updated_at'] ?? '')?.toLocal(),
+      thumbnail: json['thumbnail'],
+      displayVisibility: json['displayVisibility'],
     );
   }
 
@@ -104,6 +110,8 @@ class ProductCategory {
     json['products'] = products?.map((e) => e.toJson()).toList();
     json['created_at'] = createdAt.toString();
     json['updated_at'] = updatedAt.toString();
+    json['thumbnail'] = thumbnail;
+    json['displayVisibility'] = displayVisibility;
     return json;
   }
 }
