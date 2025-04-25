@@ -204,7 +204,8 @@ class CartsResource extends BaseResource {
       if (customHeaders != null) {
         client.options.headers.addAll(customHeaders);
       }
-      final response = await client.post('/store/carts/$cartId/payment-sessions', data: req);
+      final response =
+          await client.post('/store/carts/$cartId/payment-session', data: req);
       if (response.statusCode == 200) {
         return StoreCartsRes.fromJson(response.data);
       } else {
