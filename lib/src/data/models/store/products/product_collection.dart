@@ -37,7 +37,7 @@ class ProductCollection {
   final int? rank;
   final bool? isFeatured;
   final bool? isActive;
-  final List<Image>? images;
+  final List<Images>? images;
 
   ProductCollection({
     this.id,
@@ -62,10 +62,10 @@ class ProductCollection {
       products = <Product>[];
       json['products'].forEach((e) => products!.add(Product.fromJson(e)));
     }
-    List<Image>? images;
+    List<Images>? images;
     if (json['images'] != null) {
-      images = <Image>[];
-      json['images'].forEach((e) => images!.add(Image.fromJson(e)));
+      images = <Images>[];
+      json['images'].forEach((e) => images!.add(Images.fromJson(e)));
     }
     return ProductCollection(
       id: json['id'],
@@ -118,7 +118,7 @@ class ProductCollection {
     int? rank,
     bool? isFeatured,
     bool? isActive,
-    List<Image>? images,
+    List<Images>? images,
   }) {
     return ProductCollection(
       id: id ?? this.id,

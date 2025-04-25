@@ -1,4 +1,4 @@
-class Image {
+class Images {
   final String? id;
   final String? url;
   final DateTime? createdAt;
@@ -6,7 +6,7 @@ class Image {
   final DateTime? deletedAt;
   final Map<String, dynamic>? metadata;
 
-  Image({
+  Images({
     this.id,
     this.url,
     this.createdAt,
@@ -15,8 +15,8 @@ class Image {
     this.metadata,
   });
 
-  factory Image.fromJson(Map<String, dynamic> json) {
-    return Image(
+  factory Images.fromJson(Map<String, dynamic> json) {
+    return Images(
       id: json['id'],
       url: json['url'],
       createdAt: DateTime.tryParse(json['created_at'] ?? '')?.toLocal(),
