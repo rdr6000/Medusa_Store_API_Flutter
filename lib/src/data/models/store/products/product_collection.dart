@@ -1,4 +1,4 @@
-import 'product.dart';
+import 'index.dart';
 
 class ProductCollection {
   /// The product collection's id
@@ -37,7 +37,7 @@ class ProductCollection {
   final int? rank;
   final bool? isFeatured;
   final bool? isActive;
-  final List<String>? images;
+  final List<Image>? images;
 
   ProductCollection({
     this.id,
@@ -62,9 +62,10 @@ class ProductCollection {
       products = <Product>[];
       json['products'].forEach((e) => products!.add(Product.fromJson(e)));
     }
-    List<String>? images;
+    List<Image>? images;
     if (json['images'] != null) {
-      images = List<String>.from(json['images']);
+      images = <Image>[];
+      json['images'].forEach((e) => images!.add(Image.fromJson(e)));
     }
     return ProductCollection(
       id: json['id'],
@@ -117,7 +118,7 @@ class ProductCollection {
     int? rank,
     bool? isFeatured,
     bool? isActive,
-    List<String>? images,
+    List<Image>? images,
   }) {
     return ProductCollection(
       id: id ?? this.id,
